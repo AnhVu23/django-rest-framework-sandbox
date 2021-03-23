@@ -2,9 +2,13 @@ from django.shortcuts import render
 from cbvApp.models import Student
 from cbvApp.serializers import StudentSerializer
 from rest_framework.response import Response
-from rest_framework import status, generics, mixins
+from rest_framework import status, generics, mixins, viewsets
 from rest_framework.views import APIView
 
+## Implementation using viewsets
+class StudentViewSet(viewsets.ModelViewSet):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
 ## Implementation using generics api views
 class StudentList(generics.ListCreateAPIView):
     queryset = Student.objects.all()
