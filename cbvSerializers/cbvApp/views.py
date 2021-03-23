@@ -1,14 +1,18 @@
 from django.shortcuts import render
-from cbvApp.models import Student
-from cbvApp.serializers import StudentSerializer
+from .models import Student
+from .serializers import StudentSerializer
 from rest_framework.response import Response
 from rest_framework import status, generics, mixins, viewsets
 from rest_framework.views import APIView
+from rest_framework.pagination import PageNumberPagination, LimitOffsetPagination
 
+class StudentPagination(LimitOffsetPagination):
+    page_size = 2
 ## Implementation using viewsets
 class StudentViewSet(viewsets.ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
+    pagination_class = StudentPagination
 ## Implementation using generics api views
 class StudentList(generics.ListCreateAPIView):
     queryset = Student.objects.all()
