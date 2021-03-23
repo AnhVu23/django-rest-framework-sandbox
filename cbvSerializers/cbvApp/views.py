@@ -5,6 +5,16 @@ from rest_framework.response import Response
 from rest_framework import status, generics, mixins
 from rest_framework.views import APIView
 
+## Implementation using generics api views
+class StudentList(generics.ListCreateAPIView):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+
+class StudentDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+
+## Implementation using mixins
 class StudentList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
@@ -30,7 +40,7 @@ class StudentDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.D
 
 
 
-# Create your views here.
+# Naive implementation
 class StudentList(APIView):
 
     def get(self, request):
